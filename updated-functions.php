@@ -304,24 +304,24 @@ function mnky_admin_scripts() {
 	wp_enqueue_style( 'mnky_admin', MNKY_URI . '/inc/admin/assets/admin.css', null, wp_get_theme()->get( 'Version' ), 'all' );
 	wp_style_add_data( 'mnky_admin', 'rtl', MNKY_URI . '/inc/admin/assets/admin-rtl.css' );
 }
-
-function remove_header() {
-   if (!page_title("own-your-home")) {
-    return;
-   }
-   $css_to_hide_header = "
-   <style>
-  header {
-    display:none;
-  }
-  nav {
-    display:none;
-  }
-  footer {
-    display:none;
-  }
-    </style>";
-
-   echo $css_to_hide_header;
+// custom code for cookie scripts
+add_action( 'init', 'tsavo_user' );
+function tsavo_user() {
+	if (!is_page("own-your-home")) {
+		return;
+		} else {
+			echo $_COOKIE["tsavo_user"];
+			$cookie_name = "tsavo_user";
+			$cookie_value = echo $_POST['wpforms-2703-field_1'];;
+			if (!isset($_COOKIE)) {
+			setcookie( $cookie_name, $cookie_value, 3 * DAYS_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+		} else {
+			function redirect($url) {
+	    ob_start();
+	    header('Location: tsavocity.co.ke/own-your-home/hilltop'.$url);
+	    ob_end_flush();
+	    die();
+			}
+		}
+	}
 }
-add_action('wp_head', 'remove_header');
