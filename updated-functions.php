@@ -318,7 +318,7 @@ function tsavo_user() {
 		} else {
 			function redirect($url) {
 	    ob_start();
-	    header('Location: tsavocity.co.ke/own-your-home/hilltop'.$url);
+	    header('Location: tsavocity.co.ke/finance-your-dream-home/hilltop'.$url);
 	    ob_end_flush();
 	    die();
 			}
