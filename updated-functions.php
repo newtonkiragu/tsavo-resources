@@ -310,7 +310,7 @@ function tsavo_user() {
 	if (!is_page("own-your-home")) {
 		return;
 		} else {
-			echo $_COOKIE["tsavo_user"];
+			// echo $_COOKIE["tsavo_user"];
 			$cookie_name = "tsavo_user";
 			$cookie_value = $_POST['wpforms-2703-field_1'];;
 			if (!isset($_COOKIE)) {
