@@ -304,15 +304,25 @@ function mnky_admin_scripts() {
 	wp_enqueue_style( 'mnky_admin', MNKY_URI . '/inc/admin/assets/admin.css', null, wp_get_theme()->get( 'Version' ), 'all' );
 	wp_style_add_data( 'mnky_admin', 'rtl', MNKY_URI . '/inc/admin/assets/admin-rtl.css' );
 }
+
+// 	code to debug cookies
+// function debug_to_console( $data ) {
+//     $output = $data;
+//     if ( is_array( $output ) ) {
+//         $output = implode( ',', $output);
+// 	}
+//     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+// }
+
 // custom code for cookie scripts
 add_action( 'init', 'tsavo_user' );
 function tsavo_user() {
-	if (!is_page("own-your-home")) {
+
+	if (!is_page(wp_title("own-your-home"))) {
 		return;
 		} else {
-			// echo $_COOKIE["tsavo_user"];
-			$cookie_name = "tsavo_user";
-			$cookie_value = $_POST['wpforms-2703-field_1'];;
+			$cookie_name = "tsavo_user_email";
+			$cookie_value = $_POST['wpforms-2703-field_1'];
 			if (!isset($_COOKIE)) {
 			setcookie( $cookie_name, $cookie_value, 3 * DAYS_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
 		} else {
@@ -324,4 +334,19 @@ function tsavo_user() {
 			}
 		}
 	}
+	if (!is_page(wp_title("TSAVO | HILLTOP"))) {
+		return;
+	} else {
+		if (!isset($_COOKIE)) {
+			function redirect($url) {
+				ob_start();
+				header('Location: tsavocity.co.ke/finance-your-dream-home/'.$url);
+				ob_end_flush();
+				die();
+			}
+		} else {
+			return;
+		}
+	}
 }
+debug_to_console($cookie_value);
